@@ -1,0 +1,5 @@
+models/BankAccount.class
+models/Transaction.class
+models/Customer.class
+co/wedevx/App.class
+services/BankingServiceClass.class
