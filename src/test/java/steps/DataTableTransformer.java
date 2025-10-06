@@ -1,6 +1,7 @@
 package steps;
 
 import io.cucumber.java.DataTableType;
+import io.cucumber.java.bs.A;
 import models.*;
 
 import java.util.Map;
@@ -8,15 +9,15 @@ import java.util.Map;
 public class DataTableTransformer {
 
     @DataTableType
-    public Order orderEntry(Map<String,String> entry){
+    public Order orderEntry(Map<String, String> entry) {
         int orderId = Integer.valueOf(entry.get("orderID"));
         String product = entry.get("product");
         int quantity = Integer.valueOf(entry.get("quantity"));
-        return new Order(orderId,product,quantity);
+        return new Order(orderId, product, quantity);
     }
 
     @DataTableType
-    public Hotel hotelEntry(Map<String,String> hotels){
+    public Hotel hotelEntry(Map<String, String> hotels) {
         String name = hotels.get("hotelName");
         String location = hotels.get("location");
         int rating = Integer.valueOf(hotels.get("starRating"));
@@ -25,22 +26,25 @@ public class DataTableTransformer {
         double avgGuestRating = Double.parseDouble(hotels.get("avgGuestRating"));
         return new Hotel(name, location, rating, roomTypes, avgGuestRating);
     }
+
     @DataTableType
-    public EmailType emailTypeEntry(Map<String,String> entry){
+    public EmailType emailTypeEntry(Map<String, String> entry) {
         String emailType = entry.get("emailType");
         String description = entry.get("description");
-        return new EmailType(emailType,description);
+        return new EmailType(emailType, description);
     }
-    @DataTableType
-    public EmailAutomationSetting settingsEntry(Map<String,String> entry){
 
-       String type = entry.get("emailType");
-       String frequency = entry.get("scheduleFrequency");
-       String sendTime = entry.get("sendTime");
-    return new EmailAutomationSetting(type, frequency, sendTime);
-    }
     @DataTableType
-    public Employee employeeEntry(Map<String,String> entry){
+    public EmailAutomationSetting settingsEntry(Map<String, String> entry) {
+
+        String type = entry.get("emailType");
+        String frequency = entry.get("scheduleFrequency");
+        String sendTime = entry.get("sendTime");
+        return new EmailAutomationSetting(type, frequency, sendTime);
+    }
+
+    @DataTableType
+    public Employee employeeEntry(Map<String, String> entry) {
         int id = Integer.valueOf(entry.get("employeeID"));
         String name = entry.get("firstName");
         String lastname = entry.get("lastName");
@@ -48,10 +52,11 @@ public class DataTableTransformer {
         String position = entry.get("position");
         String salary = entry.get("salary");
 
-        return new Employee(id, name,lastname,department,position,salary);
+        return new Employee(id, name, lastname, department, position, salary);
     }
+
     @DataTableType
-    public Claim claimEntry(Map<String,String> entry){
+    public Claim claimEntry(Map<String, String> entry) {
         String claimId = entry.get("claimId");
         double amount = Double.valueOf(entry.get("amount"));
         String date = entry.get("date");
@@ -61,8 +66,9 @@ public class DataTableTransformer {
         return new Claim(claimId, amount, date, description, supportingDoc);
 
     }
+
     @DataTableType
-    public Invoice invoiceEntry(Map<String, String > entry){
+    public Invoice invoiceEntry(Map<String, String> entry) {
         // | orderId | customerName | shippingAddress | billingAddress
         // | productName | quantity | unitPrice | subtotal | taxRate | taxAmount | totalAmount |
         String orderId = entry.get("orderId");
@@ -89,8 +95,9 @@ public class DataTableTransformer {
     private double parseDoubleSafe(String value) {
         return (value == null || value.isBlank()) ? 0.0 : Double.parseDouble(value);
     }
+
     @DataTableType
-    public ShoeOrder entryShoeOrder(Map<String,String> entry){
+    public ShoeOrder entryShoeOrder(Map<String, String> entry) {
         String orderId = entry.get("orderId");
         String customerName = entry.get("customerName");
         String shippingAddress = entry.get("shippingAddress");
@@ -110,4 +117,16 @@ public class DataTableTransformer {
                 taxRate, taxAmount, totalPrice, totalAmount);
     }
 
+    @DataTableType
+    public AccountCard accountCardEntry(Map<String, String> entry) {
+        String accountName = entry.get("accountName");
+        String accountType = entry.get("accountType");
+        String ownership = entry.get("ownership");
+        long accountNumber = Long.valueOf(entry.get("accountNumber"));
+        String interestRate = entry.get("interestRate");
+        double balance = Double.parseDouble(entry.get("balance"));
+
+        return new AccountCard(accountName, accountType, ownership, accountNumber, interestRate, balance);
+
+    }
 }
