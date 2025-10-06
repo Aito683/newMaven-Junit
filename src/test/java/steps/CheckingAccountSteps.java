@@ -5,10 +5,13 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import io.github.bonigarcia.wdm.WebDriverManager;
+import models.AccountCard;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
@@ -80,12 +83,17 @@ public class CheckingAccountSteps {
     @Then("the user should see the green {string} message")
     public void the_user_should_see_the_green_message(String expectedConfMessage) {
        WebElement newAccountConfAlertDiv = driver.findElement(By.id("new-account-conf-alert"));
-
-       expectedConfMessage = "Confirmation "+ expectedConfMessage +"\n";
-       assertEquals(expectedConfMessage, newAccountConfAlertDiv.getText());
+        System.out.println(newAccountConfAlertDiv.getText());
+      expectedConfMessage = "Confirmation " + expectedConfMessage + "\n×";
+      assertEquals(expectedConfMessage, newAccountConfAlertDiv.getText());
     }
     @Then("the user should see newly added account card")
-    public void the_user_should_see_newly_added_account_card(io.cucumber.datatable.DataTable dataTable) {
+    public void the_user_should_see_newly_added_account_card(List<AccountCard> accountCardList) {
+
+        List<WebElement> allFirstRowDivs = driver.findElements(By.xpath("//div[@id='firstRow']/div"));
+        for(WebElement card:allFirstRowDivs){
+            System.out.println(card.getText());
+        }
        
     }
     @Then("the user should see the following transactions")

@@ -5,7 +5,7 @@ Feature: Creating a new checking account
     And the user logged in as "janedoe@gmail.com" "JaneDoe123!"
     And the user clicks on the checking button
     And the user clicks on new checking button
-    When the user selects "Interest Checking" Account type
+    When the user selects "Standard Checking" Account type
     And the user selects "Individual" Account Ownership
     And the user names the account "Jane Doe First Checking"
     And the user makes the initial deposit of $100000.00
