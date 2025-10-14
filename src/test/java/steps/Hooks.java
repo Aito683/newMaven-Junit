@@ -29,21 +29,20 @@ public class Hooks {
         System.out.println("Code to set up webdriver before hooks");
         // Code to set up webdriver
     }
+    @Before(order = 1)
+    public void setUp1() {
+        if (driver == null) {
+            WebDriverManager.chromedriver().setup();
+            driver = new ChromeDriver();
+            driver.manage().window().maximize();
+        }
+    }
 
    @After
     public void cleanUp(){
         System.out.println("Cleanup in Cucumber");
     }
     public static WebDriver driver;
-
-        @Before
-        public void setUp1() {
-            if (driver == null) {
-                WebDriverManager.chromedriver().setup();
-                driver = new ChromeDriver();
-                driver.manage().window().maximize();
-            }
-        }
 
         @After
         public void tearDown() {

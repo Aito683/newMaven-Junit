@@ -1,7 +1,6 @@
 package steps;
 
 import io.cucumber.java.DataTableType;
-import io.cucumber.java.bs.A;
 import models.*;
 
 import java.util.Map;
@@ -127,6 +126,31 @@ public class DataTableTransformer {
         double balance = Double.parseDouble(entry.get("balance"));
 
         return new AccountCard(accountName, accountType, ownership, accountNumber, interestRate, balance);
+
+    }
+    @DataTableType
+    public BankTransaction1 transactionEntry(Map<String, String> entry){
+        String date = entry.get("date");
+        String category = entry.get("category");
+        String description = entry.get("description");
+
+        // Clean both amount and balance before parsing
+        String amountStr = entry.get("amount").trim().replaceAll("[^0-9.-]", "");
+        String balanceStr = entry.get("balance").trim().replaceAll("[^0-9.-]", "");
+
+        double amount = Double.parseDouble(amountStr);
+        double balance = Double.parseDouble(balanceStr);
+
+        return new BankTransaction1(date, category, description, amount, balance);
+    }
+    @DataTableType
+    public NewCheckingAccountInfo newCheckingAccountInfoEntry(Map<String,String> entry){
+        String checkingAccountType = entry.get("checkingAccountType");
+        String accountOwnership = entry.get("accountOwnership");
+        String accountName = entry.get("accountName");
+        double initialDeposit = parseDoubleSafe(entry.get("initialDeposit"));
+
+        return new NewCheckingAccountInfo(checkingAccountType, accountOwnership, accountName, initialDeposit);
 
     }
 }
